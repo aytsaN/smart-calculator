@@ -1,8 +1,7 @@
 class SmartCalculator {
   constructor(initialValue) {
-    //this.value=initialValue;
-    this.arr=[];
-    this.arr.push(initialValue);
+    this.arr = [initialValue];
+   // this.arr.push(initialValue);
   }
 
   add(number) {
@@ -35,43 +34,41 @@ class SmartCalculator {
     return this;
   }
 
-  valueOf(arr){
-    for (var i=this.arr.length; i>0; i--) {
-      if (this.arr[i]=='^') {
-        this.arr[i-1]=Math.pow(this.arr[i-1], this.arr[i+1]);
+  valueOf(){
+
+    for (let i = this.arr.length; i > 0; i--) {
+      if (this.arr[i] === '^') {
+        this.arr[i-1] = Math.pow(this.arr[i-1], this.arr[i+1]);
         this.arr.splice(i, 2);
         i++; 
       }
     }
-      for( i=0; i<this.arr.length; i++) {
-        if (this.arr[i]=='*' || this.arr[i]=='/') {
-          if(this.arr[i]=='*') {
-            this.arr[i-1]=this.arr[i-1]*this.arr[i+1];
-            this.arr.splice(i, 2);
-            i--;
-          }
-          else {
-            this.arr[i-1]=this.arr[i-1]/this.arr[i+1];
-            this.arr.splice(i, 2);
-            i--;
-          }
-        }
-      }
-     for( i=0; i<this.arr.length; i++) {
-      if (this.arr[i]=='+' || this.arr[i]=='-') {
-        if(this.arr[i]=='+') {
-            this.arr[i-1]=this.arr[i-1]+this.arr[i+1];
-            this.arr.splice(i, 2);
-            i--;
-          }
-          else {
-            this.arr[i-1]=this.arr[i-1]-this.arr[i+1];
-            this.arr.splice(i, 2);
-            i--;
-          }
-      }
-     } 
     
+    for(let i = 0; i < this.arr.length; i++) {
+      if(this.arr[i] === '*') {
+        this.arr[i-1] *=  this.arr[i+1];
+        this.arr.splice(i, 2);
+        i--;
+      }
+      if(this.arr[i] === '/') {
+        this.arr[i-1] /= this.arr[i+1];
+        this.arr.splice(i, 2);
+        i--;
+      }
+    }
+
+    for(let i = 0; i < this.arr.length; i++) {
+      if(this.arr[i] === '+') {
+        this.arr[i-1] += this.arr[i+1];
+        this.arr.splice(i, 2);
+        i--;
+      }
+      if (this.arr[i] === '-') {
+        this.arr[i-1] -= this.arr[i+1];
+        this.arr.splice(i, 2);
+        i--;
+      }
+    } 
     return this.arr[0];
   }
 }
